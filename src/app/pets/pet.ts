@@ -5,5 +5,5 @@ export interface Pet {
     kingdom: string;
     species: string;
     birthday: Date;
-
+    weight?: number;
 }
