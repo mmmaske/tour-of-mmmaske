@@ -1,0 +1,10 @@
+<div *ngIf="pet">
+
+    <h2>{{pet.name}} Details</h2>
+    <div><span>id: </span>{{pet.id}}</div>
+    <div>
+      <label for="pet-name">Pet name: </label>
+      <input id="pet-name" [(ngModel)]="pet.name" placeholder="name">
+    </div>
+
+  </div>
