@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Pet } from './pet';
-import { PETS } from '../mock-pets';
+import { PetService } from '../pet.service';
 
 @Component({
   selector: 'app-pets',
@@ -8,9 +8,20 @@ import { PETS } from '../mock-pets';
   styleUrls: ['./pets.component.css']
 })
 export class PetsComponent {
+    constructor(private petService: PetService) {}
+
     selectedPet?: Pet;
     onSelect(pet: Pet): void {
     this.selectedPet = pet;
     }
-    pets = PETS;
+    pets : Pet[] = [];
+
+    getPets(): void {
+        this.pets = this.petService.getPets();
+        console.log(this);
+    }
+
+    ngOnInit(): void {
+        this.getPets();
+    }
 }
