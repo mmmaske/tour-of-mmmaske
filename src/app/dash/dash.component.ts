@@ -19,6 +19,6 @@ export class DashComponent implements OnInit {
 
     getPets(): void {
         this.petService.getPetsFromAPI()
-        .subscribe(pets => this.pets = pets.slice(0,3))
+        .subscribe(pets => this.pets = pets.slice(0,4))
     }
 }

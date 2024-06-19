@@ -20,6 +20,11 @@ export class PetsComponent implements OnInit {
         console.log(JSON.stringify(this.pets));
     }
 
+    delete(pet: Pet): void {
+        this.pets = this.pets.filter(h => h !== pet);
+        this.petService.deletePet(pet.id).subscribe();
+      }
+
     ngOnInit(): void {
         this.getPets();
     }

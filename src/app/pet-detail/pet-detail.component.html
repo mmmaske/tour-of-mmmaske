@@ -1,13 +1,37 @@
 <div *ngIf="pet">
-
     <h2>{{pet.name}} Details</h2>
     <div><span>id: </span>{{pet.id}}</div>
     <div>
         <label for="pet-name">Pet name: </label>
         <input id="pet-name" [(ngModel)]="pet.name" placeholder="name">
     </div>
+    <div>
+        <label for="pet-kingdom">Pet Kingdom: </label>
+        <input id="pet-kingdom" [(ngModel)]="pet.kingdom" placeholder="kingdom">
+    </div>
+    <div>
+        <label for="pet-species">Pet species: </label>
+        <input id="pet-species" [(ngModel)]="pet.species" placeholder="species">
+    </div>
+    <div>
+        <label for="pet-display_badge">Display badge: </label>
+        <input id="pet-display_badge" [(ngModel)]="pet.display_badge" placeholder="display_badge">
+    </div>
+    <div>
+        <label for="pet-birthday">Pet birthday: </label>
+        <input id="pet-birthday" [(ngModel)]="pet.birthday" placeholder="birthday">
+    </div>
+    <div>
+        <label for="pet-weight">Pet weight: </label>
+        <input id="pet-weight" [(ngModel)]="pet.weight" placeholder="weight">
+    </div>
+    <div>
+        <label for="pet-image">Image URL: </label>
+        <input id="pet-image" [(ngModel)]="pet.image" placeholder="image">
+    </div>
     <button type="button" (click)="save()">save</button>
     <button type="button" (click)="goBack()">go back</button>
+
     <div *ngIf="pet.image">
         <img src="{{pet.image}}" style="width:500px;"/>
     </div>

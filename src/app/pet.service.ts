@@ -22,7 +22,7 @@ export class PetService {
     private apiUrl = 'http://localhost:4201/pets';
 
     private log(message: string) {
-        this.messageService.add(message);
+        this.messageService.add(`petService: ${message}`);
     }
 
     getMockPets(): Pet[] {
@@ -32,7 +32,7 @@ export class PetService {
     getPets(): Observable<Pet[]> {
         const pets = of(PETS); // used to get data from mock-pets
         console.log('run getPets');
-        this.log('petService: fetched pets from hardcoded mock-pets');
+        this.log('fetched pets from hardcoded mock-pets');
         return pets;
     }
 
@@ -60,10 +60,27 @@ export class PetService {
 
     /** PUT: update the pet on the server */
     updatePet(pet: Pet): Observable<any> {
-        const urlWithId = this.apiUrl+"/"+pet.id;
-        return this.http.put(urlWithId, pet, this.httpOptions).pipe(
+        const url = `${this.apiUrl}/${pet.id}`;
+        return this.http.put(url, pet, this.httpOptions).pipe(
         tap(_ => this.log(`updated pet id=${pet.id}`)),
         catchError(this.handleError<any>('updatePet'))
+        );
+    }
+
+    /** POST: add a new pet to the server */
+    addPet(pet: Pet): Observable<Pet> {
+        return this.http.post<Pet>(this.apiUrl, pet, this.httpOptions).pipe(
+        tap((newPet: Pet) => this.log(`added pet w/ id=${newPet.id}`)),
+        catchError(this.handleError<Pet>('addPet'))
+        );
+    }
+
+    /** DELETE: delete the pet from the server */
+    deletePet(id: string): Observable<Pet> {
+        const url = `${this.apiUrl}/${id}`;
+        return this.http.delete<Pet>(url, this.httpOptions).pipe(
+        tap(_ => this.log(`deleted pet id=${id}`)),
+        catchError(this.handleError<Pet>('deletePet'))
         );
     }
 

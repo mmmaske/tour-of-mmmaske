@@ -1,0 +1,8 @@
+
+<div>
+    <label for="new-pet-name">New Pet: </label>
+    <input id="new-pet-name" #petName />
+</div>
+<button type="button" class="add-button" (click)="add(petName.value); petName.value=''">
+    Add pet
+</button>

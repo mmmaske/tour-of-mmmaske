@@ -14,6 +14,7 @@ import { environment } from 'src/environment/environment.prod';
 import { DashComponent } from './dash/dash.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Page404Component } from './page404/page404.component';
+import { PetformComponent } from './petform/petform.component';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -39,7 +40,8 @@ const analytics = getAnalytics(app);
     PetDetailComponent,
     MessagesComponent,
     DashComponent,
-    Page404Component
+    Page404Component,
+    PetformComponent
   ],
   imports: [
     BrowserModule,

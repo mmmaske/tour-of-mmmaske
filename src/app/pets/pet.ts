@@ -4,7 +4,7 @@ export interface Pet {
     display_badge: string;
     kingdom: string;
     species: string;
-    birthday: Date;
+    birthday?: Date;
     weight?: number;
     image?: string;
 }
