@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Pet } from '../pets/pet';
 import { PetService } from '../pet.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pet-detail',
@@ -22,6 +23,7 @@ export class PetDetailComponent {
       }
 
       getPet(): void {
+        console.log(this.route.snapshot.paramMap.getAll('test')); // should return :test value in app-routing-module.ts
         const id = String(this.route.snapshot.paramMap.get('id'));
         this.petService.getPetFromAPI(id)
           .subscribe(pet => this.pet = pet);
@@ -30,8 +32,15 @@ export class PetDetailComponent {
       save(): void {
         if (this.pet) {
           this.petService.updatePet(this.pet)
-            .subscribe(/*() => this.goBack()*/);
+            .subscribe(
+                () => this.confirmSave()
+            );
         }
+      }
+
+      confirmSave(): void {
+        Swal.fire('You did it!', 'Data saved successfully.', 'success');
+        this.goBack();
       }
 
       goBack(): void {
