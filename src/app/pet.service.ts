@@ -3,13 +3,21 @@ import { Pet } from './pets/pet';
 import { PETS } from './mock-pets';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
 })
 export class PetService {
 
-    constructor(private messageService: MessageService) { }
+    constructor(
+        // private http: HttpClient,
+        private messageService: MessageService
+    ) { }
+
+    private log(message: string) {
+        this.messageService.add(message);
+    }
 
     getMockPets(): Pet[] {
         return PETS;
@@ -17,7 +25,7 @@ export class PetService {
 
     getPets(): Observable<Pet[]> {
         const pets = of(PETS);
-        this.messageService.add('petService: fetched pets');
+        this.log('petService: fetched pets');
         return pets;
     }
 

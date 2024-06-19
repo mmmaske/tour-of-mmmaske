@@ -17,7 +17,8 @@ export class PetsComponent implements OnInit {
     getPets(): void {
         this.petService.getPets()
             .subscribe(pets => this.pets = pets);
-      }
+        console.log(JSON.stringify(this.pets));
+    }
 
     ngOnInit(): void {
         this.getPets();
