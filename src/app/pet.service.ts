@@ -20,4 +20,12 @@ export class PetService {
         this.messageService.add('petService: fetched pets');
         return pets;
     }
+
+    getPet(id: string): Observable<Pet> {
+        // For now, assume that a hero with the specified `id` always exists.
+        // Error handling will be added in the next step of the tutorial.
+        const pet = PETS.find(h => h.id === id)!;
+        this.messageService.add(`PetService: fetched pet id=${id}`);
+        return of(pet);
+      }
 }

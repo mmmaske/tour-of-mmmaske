@@ -10,13 +10,15 @@ import { MessagesComponent } from './messages/messages.component';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { environment } from 'src/environment/environment.prod';
+import { DashComponent } from './dash/dash.component';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBF4d2IlThI7sbNCuFQvUig7xYpi6aSgIk",
+  apiKey: environment.apiKey,
   authDomain: "mmm-firebase-test-426808.firebaseapp.com",
   projectId: "mmm-firebase-test-426808",
   storageBucket: "mmm-firebase-test-426808.appspot.com",
@@ -33,7 +35,8 @@ const analytics = getAnalytics(app);
     AppComponent,
     PetsComponent,
     PetDetailComponent,
-    MessagesComponent
+    MessagesComponent,
+    DashComponent
   ],
   imports: [
     BrowserModule,

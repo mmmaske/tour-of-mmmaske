@@ -10,7 +10,7 @@
     display: flex;
   }
 
-  .pets button {
+  .pets a {
     flex: 1;
     cursor: pointer;
     position: relative;
@@ -24,28 +24,28 @@
     height: 1.8em;
   }
 
-  .pets button:hover {
+  .pets a:hover {
     color: #2c3a41;
     background-color: #e6e6e6;
     left: .1em;
   }
 
-  .pets button:active {
+  .pets a:active {
     background-color: #525252;
     color: #fafafa;
   }
 
-  .pets button.selected {
+  .pets a.selected {
     background-color: black;
     color: white;
   }
 
-  .pets button.selected:hover {
+  .pets a.selected:hover {
     background-color: #505050;
     color: white;
   }
 
-  .pets button.selected:active {
+  .pets a.selected:active {
     background-color: black;
     color: white;
   }
