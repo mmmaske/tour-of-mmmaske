@@ -12,7 +12,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class PetService {
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-      };
+    };
 
     constructor(
         private http: HttpClient,
@@ -32,7 +32,7 @@ export class PetService {
     getPets(): Observable<Pet[]> {
         const pets = of(PETS); // used to get data from mock-pets
         console.log('run getPets');
-        this.log('petService: fetched pets');
+        this.log('petService: fetched pets from hardcoded mock-pets');
         return pets;
     }
 
@@ -41,8 +41,6 @@ export class PetService {
             tap(_ => this.log('fetched pets')),
             catchError(this.handleError<Pet[]>('getPets', []))
           );
-        console.log(pets);
-        this.log(JSON.stringify(pets));
         return pets;
     }
 
@@ -50,6 +48,23 @@ export class PetService {
         const pet = PETS.find(h => h.id === id)!;
         this.messageService.add(`PetService: fetched pet id=${id}`);
         return of(pet);
+    }
+
+    getPetFromAPI(id: string): Observable<Pet> {
+        const url = `${this.apiUrl}/${id}`;
+        return this.http.get<Pet>(url).pipe(
+          tap(_ => this.log(`fetched Pet id=${id}`)),
+          catchError(this.handleError<Pet>(`getPet id=${id}`))
+        );
+      }
+
+    /** PUT: update the pet on the server */
+    updatePet(pet: Pet): Observable<any> {
+        const urlWithId = this.apiUrl+"/"+pet.id;
+        return this.http.put(urlWithId, pet, this.httpOptions).pipe(
+        tap(_ => this.log(`updated pet id=${pet.id}`)),
+        catchError(this.handleError<any>('updatePet'))
+        );
     }
 
     private handleError<T>(operation = 'operation', result?: T) {

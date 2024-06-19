@@ -6,4 +6,5 @@ export interface Pet {
     species: string;
     birthday: Date;
     weight?: number;
+    image?: string;
 }

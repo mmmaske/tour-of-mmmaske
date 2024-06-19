@@ -23,8 +23,15 @@ export class PetDetailComponent {
 
       getPet(): void {
         const id = String(this.route.snapshot.paramMap.get('id'));
-        this.petService.getPet(id)
+        this.petService.getPetFromAPI(id)
           .subscribe(pet => this.pet = pet);
+      }
+
+      save(): void {
+        if (this.pet) {
+          this.petService.updatePet(this.pet)
+            .subscribe(/*() => this.goBack()*/);
+        }
       }
 
       goBack(): void {
