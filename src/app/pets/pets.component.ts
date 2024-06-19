@@ -15,7 +15,7 @@ export class PetsComponent implements OnInit {
 
 
     getPets(): void {
-        this.petService.getPets()
+        this.petService.getPetsFromAPI()
             .subscribe(pets => this.pets = pets);
         console.log(JSON.stringify(this.pets));
     }
