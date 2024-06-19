@@ -5,6 +5,7 @@ import { Observable, ObservedValuesFromArray, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Injectable({
     providedIn: 'root'
@@ -62,7 +63,7 @@ export class PetService {
     updatePet(pet: Pet): Observable<any> {
         const url = `${this.apiUrl}/${pet.id}`;
         return this.http.put(url, pet, this.httpOptions).pipe(
-        tap(_ => this.log(`updated pet id=${pet.id}`)),
+        tap(_ => this.sweetAlert(`Action completed!`,`updated pet id=${pet.id}`)),
         catchError(this.handleError<any>('updatePet'))
         );
     }
@@ -70,7 +71,7 @@ export class PetService {
     /** POST: add a new pet to the server */
     addPet(pet: Pet): Observable<Pet> {
         return this.http.post<Pet>(this.apiUrl, pet, this.httpOptions).pipe(
-        tap((newPet: Pet) => this.log(`added pet w/ id=${newPet.id}`)),
+        tap((newPet: Pet) => this.sweetAlert(`Action completed!`,`added pet w/ id=${newPet.id}`)),
         catchError(this.handleError<Pet>('addPet'))
         );
     }
@@ -79,9 +80,14 @@ export class PetService {
     deletePet(id: string): Observable<Pet> {
         const url = `${this.apiUrl}/${id}`;
         return this.http.delete<Pet>(url, this.httpOptions).pipe(
-        tap(_ => this.log(`deleted pet id=${id}`)),
+        tap(_ => this.sweetAlert(`Action completed!`,`deleted pet id=${id}`)),
         catchError(this.handleError<Pet>('deletePet'))
         );
+    }
+
+    sweetAlert(title: string, message: string) {
+        this.log(message);
+        Swal.fire(title, message, "success");
     }
 
     private handleError<T>(operation = 'operation', result?: T) {
