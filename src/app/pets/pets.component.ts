@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pet } from './pet';
 import { PetService } from '../pet.service';
-
+import { Observable, ObservedValuesFromArray, of } from 'rxjs';
 @Component({
   selector: 'app-pets',
   templateUrl: './pets.component.html',
@@ -17,6 +17,10 @@ export class PetsComponent implements OnInit {
     getPets(): void {
         this.petService.getPetsFromAPI()
             .subscribe(pets => this.pets = pets);
+
+        // const petlist = this.petService.fireGetPets();
+        console.log('petlist');
+        // console.log(petlist);
         console.log(JSON.stringify(this.pets));
     }
 

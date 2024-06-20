@@ -6,6 +6,10 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environment/environment.prod';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore, addDoc, collection, getDocs, Firestore, doc } from 'firebase/firestore/lite';
 
 @Injectable({
     providedIn: 'root'
@@ -85,6 +89,20 @@ export class PetService {
         );
     }
 
+    /* GET pets whose name contains search term */
+    searchPets(term: string): Observable<Pet[]> {
+        if (!term.trim()) {
+        // if not search term, return empty pet array.
+        return of([]);
+        }
+        return this.http.get<Pet[]>(`${this.apiUrl}/?name_like=${term}`).pipe(
+        tap(x => x.length ?
+            this.log(`found pets matching "${term}"`) :
+            this.log(`no pets matching "${term}"`)),
+        catchError(this.handleError<Pet[]>('searchPets', []))
+        );
+    }
+
     sweetAlert(title: string, message: string) {
         this.log(message);
         Swal.fire(title, message, "success");
@@ -102,5 +120,48 @@ export class PetService {
           // Let the app keep running by returning an empty result.
           return of(result as T);
         };
+    }
+
+
+
+    async fireAddPet(pet: Pet) {
+        const docRef = await addDoc(collection(this.initFire(), 'robots'), {
+          pet
+        });
+        console.log("Document written with ID: ", docRef.id);
       }
+
+    private initFire() {
+
+        const firebaseConfig = {
+            apiKey: environment.apiKey,
+            authDomain: "mmm-firebase-test-426808.firebaseapp.com",
+            projectId: "mmm-firebase-test-426808",
+            storageBucket: "mmm-firebase-test-426808.appspot.com",
+            messagingSenderId: "640331319349",
+            appId: "1:640331319349:web:cd2a5a319a36881d80497c",
+            measurementId: "G-G69VEK0X8Q"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+
+        return db;
+    }
+
+    public async fireGetPets() {
+        const petsCol = collection(this.initFire(), 'pets');
+        const petSnapshot = await getDocs(petsCol);
+        if (petSnapshot.empty) {
+            console.log('No matching documents.');
+            return;
+          }
+
+        petSnapshot.forEach(doc => {
+            console.log(doc.id, '=>', doc.data());
+        });
+        return petSnapshot;
+    }
 }

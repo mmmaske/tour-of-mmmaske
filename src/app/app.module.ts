@@ -10,29 +10,14 @@ import { MessagesComponent } from './messages/messages.component';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getFirestore, collection, getDocs, Firestore } from 'firebase/firestore/lite';
 import { environment } from 'src/environment/environment.prod';
 import { DashComponent } from './dash/dash.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Page404Component } from './page404/page404.component';
 import { PetformComponent } from './petform/petform.component';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { PetSearchComponent } from './pet-search/pet-search.component';
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: environment.apiKey,
-  authDomain: "mmm-firebase-test-426808.firebaseapp.com",
-  projectId: "mmm-firebase-test-426808",
-  storageBucket: "mmm-firebase-test-426808.appspot.com",
-  messagingSenderId: "640331319349",
-  appId: "1:640331319349:web:cd2a5a319a36881d80497c",
-  measurementId: "G-G69VEK0X8Q"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,13 +26,14 @@ const analytics = getAnalytics(app);
     MessagesComponent,
     DashComponent,
     Page404Component,
-    PetformComponent
+    PetformComponent,
+    PetSearchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

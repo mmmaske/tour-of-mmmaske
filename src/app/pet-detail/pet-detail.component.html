@@ -18,8 +18,8 @@
         <input id="pet-display_badge" [(ngModel)]="pet.display_badge" placeholder="display badge">
     </div>
     <div>
-        <label for="pet-birthday">Pet birthday: </label>
-        <input id="pet-birthday" [(ngModel)]="pet.birthday" placeholder="birthday">
+        <label for="pet-birthday">Pet birthday: {{ pet.birthday | date }} </label>
+        <input id="pet-birthday" #petBirthday [(ngModel)]="pet.birthday" placeholder="birthday">
     </div>
     <div>
         <label for="pet-weight">Pet weight: </label>
